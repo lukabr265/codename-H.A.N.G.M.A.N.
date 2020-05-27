@@ -1,5 +1,6 @@
 import pygame
 import random
+
 pygame.init()
 #kolorki ktore moga sie przydac zeby nie wpisawac kodu RGB za kazdym razem
 colors = {"black":(0,0,0), "grey":(128,128,128),"lightgrey":(200,200,200),
@@ -48,17 +49,15 @@ def print_wrong_letter(letters): #funkcja wypisujaca uzyte litery ktorych nie ma
         screen.blit(text, textRect)
 
 class button: #klasa opisujaca przyciski uzywane w grze
-    def __init__(self,category,category_base,pos):
+    def __init__(self,name,pos):
         self.color = colors['blue'] #wybieram kolor
         self.on_screen = False #zmienna logiczna odpowiadajaca za sprawdzanie czy dany przycisk jest na ekranie poniewaz bez niej dany fragment ekranu jest klikalny nawet kiedy guzik juz zniknal
         self.active = False #zmienna logiczna do sprawdzania czy kursor myszki jest na ekranie i zmieniania koloru przycisku
-        self.size = 30 #rozmiar czcionki tekstu wyswietlanego na guziku
-        self.category = category #tekst wyswietlany na guziku
-        self.category_base = category_base #przypisanie bazy kategorii
+        self.name = name #tekst wyswietlany na guziku
         self.pos = pos #pozycja guzika
         self.surface = pygame.Surface((200,50)) # wyznaczam wymiary fragmentu ekranu na ktorym bedzie guzik
         self.surface.fill(self.color) #zapelniam ta powierzchnie kolorem
-        self.text = default_font.render(self.category,True,colors['white'])
+        self.text = default_font.render(self.name,True,colors['white'])
 
     def draw_button(self): #metoda rysujaca guzik na ekranie gry
         if self.active == True: #jesli jest aktywny czyli kursor jest na guziku to rozjasnij (takie interaktywne bajery)
@@ -70,7 +69,7 @@ class button: #klasa opisujaca przyciski uzywane w grze
         textRect.center = (100,25) #wyznaczam wspolrzedne tekstu w srodku guzika 
         self.surface.blit(self.text,textRect)
 
-round_buttons = [button('Yes',None,(300,600)),button('No',None,(s_width-500,600))] #tablica z guzikami rund, poniewaz iteruje rozne guziki w roznych miejscach kodu
+round_buttons = [button('Yes',(300,600)),button('No',(s_width-500,600))] #tablica z guzikami rund, poniewaz iteruje rozne guziki w roznych miejscach kodu
 alfabet = 'abcdefghijklmnopqrstuvwxyz'
 wrong_letters = [] #tablica w ktorej zapisuje wprowadzone litery ktorych nie ma w hasle
 running = True
@@ -110,7 +109,8 @@ while running: #no to lecim
             if letter not in word and letter not in wrong_letters:
                 letter_list(letter)
                 turns -= 1
-    another_round()
+    else:            
+        another_round()
 
     pygame.draw.rect(screen, colors['black'], [30,50,200,200],2) #rysuje 'okienko' w ktorym wypisywane beda bledne litery
     print_wrong_letter(wrong_letters) #wypisuje wybrane literki ktorych nie ma w hasle zeby uzytkownik wiedzial jakich liter nie uzywac ponownie
