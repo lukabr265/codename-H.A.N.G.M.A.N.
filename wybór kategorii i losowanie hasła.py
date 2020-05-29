@@ -10,11 +10,12 @@ animals = ["chimpanzee", "cockroach", "pigeon", "guinea pig", "herring", "sturge
 plants = ["almond tree", "cabbage", "buckeye", "clover", "hogweed", "sneezeweed"]
 # almond tree - migdałowiec, cabbage - kapusta, buckeye - kasztanowiec, clover - koniczyna, hogeweed - barszcz,
 # sneezeweed - dzielżan(taki kwiatek ładny)
-professions = ["software engineer", "physiotherapist", "veterinarian", "maintenance man", "shipyard worker", "tax collector"]
+professions = ["software engineer", "physiotherapist", "veterinarian", "maintenance man", 
+               "shipyard worker", "tax collector"]
 # software engineer - inżynier oprogramowania, programista, physiotherapist - fizjoterapeura, veterinarian - weterynarz,
 # maintenance man - konserwator, shipyard worker - pracownik stoczni, tax collector - poborca podatkowy
-proverbs = ["An empty vessel makes much noise", "Barking dogs seldom bite", "The show must go on", "You cant unscramble a scrambled egg",
-"All that glitters is not gold"]
+proverbs = ["An empty vessel makes much noise", "Barking dogs seldom bite", "The show must go on", 
+            "You cant unscramble a scrambled egg", "All that glitters is not gold"]
 # [0]foolish or stupid people are the most talkative, [1]people who appear threatening rarely do harm,
 # [2]A performance, event, etc., must continue even though there are problems, [3]Some actions are irreversible,
 # [4]Things that look good outwardly may not be as valuable or good
@@ -28,11 +29,13 @@ for i in range(len(categories)):
 
 print()
 
-answer = input("Which category from list do you want to choose? \n") # możliwość wyboru kategorii z listy
+answer = input("Which category from list do you want to choose? \n") 
+# możliwość wyboru kategorii z listy
 word = ()
 
 if answer == "animals":
-    word = random.choice(animals)
+    word = random.choice(animals) 
+    # jeżeli wybrano kategorię "animals" to hasło losuje się z listy "animals", itd...
 
 elif answer == "plants":
     word = random.choice(plants)
