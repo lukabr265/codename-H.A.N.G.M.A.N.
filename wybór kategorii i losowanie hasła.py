@@ -20,6 +20,11 @@ proverbs = ["An empty vessel makes much noise", "Barking dogs seldom bite", "The
 # [2]A performance, event, etc., must continue even though there are problems, [3]Some actions are irreversible,
 # [4]Things that look good outwardly may not be as valuable or good
 
+# tłumaczenia teoretycznie nie mają większego znaczenia, ale why not
+# to suchar, ale jestem dumna z jesiotra w kategorii animals 
+# proverbsy nie mają tłumaczeń po polsku celowo, bo może po odgadnięciu hasła z tej kategorii 
+# można też wtedy wyświetlić znaczenie proverbsa :D mały dodatek, tak dla funu
+
 
 print("Categories:") # wyświetlenie kategorii z listy
 print()
