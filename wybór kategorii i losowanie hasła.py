@@ -1,9 +1,10 @@
 # Wybór kategorii hasła oraz losowanie hasła z wybranej kategorii
 
 import random
+from tkinter import*
+from tkinter import messagebox
 
-categories = ["animals", "plants", "professions", "proverbs"]
-
+word = ""
 animals = ["chimpanzee", "cockroach", "pigeon", "guinea pig", "herring", "sturgeon"]
 # chimpanzee - szympans, cockroach - karaluch, pigeon - gołąb, guinea pig - świnka morska,
 # herring - śledź, sturgeon - jesiotr (XD)
@@ -25,31 +26,40 @@ proverbs = ["An empty vessel makes much noise", "Barking dogs seldom bite", "The
 # proverbsy nie mają tłumaczeń po polsku celowo, bo może po odgadnięciu hasła z tej kategorii 
 # można też wtedy wyświetlić znaczenie proverbsa :D mały dodatek, tak dla funu
 
+main_window = Tk()
+main_window.title("Hangman")
+main_window.geometry("1200x800") # wymiary okna gry
 
-print("Categories:") # wyświetlenie kategorii z listy
-print()
+category_selection = Label(main_window, text="Which category from list do you \nwant to choose?", fg="blue")
+category_selection.pack()
+category_selection.config(font=("Courier, 30")) # modyfikacja tekstu
+category_selection.place(x=350,y=50) # ustawienie pozycji tekstu
+category_selection = Entry(main_window)
 
-for i in range(len(categories)):
-    print(categories[i])
+def category_selection1():
+    word = random.choice(animals) # funkcja ma sprawić, że po naciśnięciu przycisku ANIMALS itd. losuje się słowo z tej listy
+    # messagebox.showinfo("Hejka", word) # messagebox'y były do sprawdzenia, czy wszystko śmiga
 
-print()
-
-answer = input("Which category from list do you want to choose? \n") 
-# możliwość wyboru kategorii z listy
-word = ()
-
-if answer == "animals":
-    word = random.choice(animals) 
-    # jeżeli wybrano kategorię "animals" to hasło losuje się z listy "animals", itd...
-
-elif answer == "plants":
+def category_selection2():
     word = random.choice(plants)
+    # messagebox.showinfo("Hejka", word)
 
-elif answer == "professions":
+def category_selection3():
     word = random.choice(professions)
+    # messagebox.showinfo("Hejka", word)
 
-elif answer == "proverbs":
-    word = random.chocie(proverbs)
+def category_selection4():
+    word = random.choice(proverbs)
+    # messagebox.showinfo("Hejka", word)
 
-# powyższe ify podpinają poniekąd pule haseł dla każdej kategorii pod daną kategorię,
-# bo w zależności od wyboru ma zostać wylosowane słowo z listy wybranej kategorii
+category1 = Button(main_window, text="ANIMALS", fg="red", width=25, height=5, command = category_selection1)
+category1.place(x=200,y=300)
+# tworzę przyciski z nazwami kategorii i podpinam pod nie funkcje, które (po naciśnięciu przyciku) mają losować słowo z danej kategorii
+category2 = Button(main_window, text="PLANTS", fg="red", width=25, height=5, command = category_selection2)
+category2.place(x=400, y=300)
+category3 = Button(main_window, text="PROFESSIONS", fg="red", width=25, height=5, command = category_selection3)
+category3.place(x=600, y=300)
+category4 = Button(main_window, text="PROVERBS", fg="red", width=25, height=5, command = category_selection4)
+category4.place(x=800, y=300)
+
+main_window.mainloop()
