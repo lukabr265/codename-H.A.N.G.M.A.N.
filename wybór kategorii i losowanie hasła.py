@@ -6,25 +6,19 @@ from tkinter import messagebox
 
 word = ""
 animals = ["chimpanzee", "cockroach", "pigeon", "guinea pig", "herring", "sturgeon"]
-# chimpanzee - szympans, cockroach - karaluch, pigeon - bołąg, guinea pig - świnka morska,
-# herring - śledź, sturgeon - jesiotr (XD)
+# chimpanzee - szympans, cockroach - karaluch, pigeon - bołąg, guinea pig - świnka morska, herring - śledź, sturgeon - jesiotr (XD)
 plants = ["almond tree", "cabbage", "buckeye", "clover", "hogweed", "sneezeweed"]
-# almond tree - migdałowiec, cabbage - kapusta, buckeye - kasztanowiec, clover - koniczyna, hogeweed - barszcz,
-# sneezeweed - dzielżan(taki kwiatek ładny)
+# almond tree - migdałowiec, cabbage - kapusta, buckeye - kasztanowiec, clover - koniczyna, hogeweed - barszcz, sneezeweed - dzielżan(taki kwiatek ładny)
 professions = ["software engineer", "physiotherapist", "veterinarian", "maintenance man", 
                "shipyard worker", "tax collector"]
-# software engineer - inżynier oprogramowania, programista, physiotherapist - fizjoterapeura, veterinarian - weterynarz,
-# maintenance man - konserwator, shipyard worker - pracownik stoczni, tax collector - poborca podatkowy
+# software engineer - inżynier oprogramowania, programista, physiotherapist - fizjoterapeura, veterinarian - weterynarz, maintenance man - konserwator, shipyard worker - pracownik stoczni, tax collector - poborca podatkowy
 proverbs = ["An empty vessel makes much noise", "Barking dogs seldom bite", "The show must go on", 
             "You cant unscramble a scrambled egg", "All that glitters is not gold"]
-# [0]foolish or stupid people are the most talkative, [1]people who appear threatening rarely do harm,
-# [2]A performance, event, etc., must continue even though there are problems, [3]Some actions are irreversible,
-# [4]Things that look good outwardly may not be as valuable or good
+# [0]foolish or stupid people are the most talkative, [1]people who appear threatening rarely do harm, [2]A performance, event, etc., must continue even though there are problems, [3]Some actions are irreversible, [4]Things that look good outwardly may not be as valuable or good
 
 # tłumaczenia teoretycznie nie mają większego znaczenia, ale why not
 # to suchar, ale jestem dumna z jesiotra w kategorii animals 
-# proverbsy nie mają tłumaczeń po polsku celowo, bo może po odgadnięciu hasła z tej kategorii 
-# można też wtedy wyświetlić znaczenie proverbsa :D mały dodatek, tak dla funu
+# proverbsy nie mają tłumaczeń po polsku celowo, bo może po odgadnięciu hasła z tej kategorii można też wtedy wyświetlić znaczenie proverbsa :D mały dodatek, tak dla funu
 
 main_window = Tk()
 main_window.title("Hangman")
