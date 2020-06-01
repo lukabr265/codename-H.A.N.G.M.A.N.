@@ -6,6 +6,7 @@ from tkinter import messagebox
 
 word = ""
 letter = ""
+guessed = []
 alfabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 animals = ["chimpanzee", "cockroach", "pigeon", "guinea pig", "herring", "sturgeon"]
 # chimpanzee - szympans, cockroach - karaluch, pigeon - gołąb, guinea pig - świnka morska,
