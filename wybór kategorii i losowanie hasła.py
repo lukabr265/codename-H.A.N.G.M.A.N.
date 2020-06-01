@@ -44,9 +44,8 @@ category_selection = Entry(main_window)
 def category_selection1():
     word = random.choice(animals) # funkcja ma sprawić, że po naciśnięciu przycisku ANIMALS itd. losuje się słowo z tej listy
     #messagebox.showinfo("Hejka", word) # messagebox'y były do sprawdzenia, czy wszystko śmiga
-    tekst.set("")
-    # destroy - jeżeli zostanie wciśnięty przycisk z wyborem kategorii to następnie wszystkie przyciski i label mają zniknąć, żeby przejść do dalszej części gry
-    category1.destroy()
+    tekst.set("") # nadpisuje label pustym tekstem, żeby po wciśnięciu przycisku też zniknął z ekranu 
+    category1.destroy() # destroy - jeżeli zostanie wciśnięty przycisk z wyborem kategorii to następnie wszystkie przyciski mają zniknąć, żeby przejść do dalszej części gry
     category2.destroy()
     category3.destroy()
     category4.destroy()
