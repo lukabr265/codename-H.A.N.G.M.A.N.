@@ -39,18 +39,34 @@ category_selection = Entry(main_window)
 def category_selection1():
     word = random.choice(animals) # funkcja ma sprawić, że po naciśnięciu przycisku ANIMALS itd. losuje się słowo z tej listy
     # messagebox.showinfo("Hejka", word) # messagebox'y były do sprawdzenia, czy wszystko śmiga
+    category1.destroy()
+    category2.destroy()
+    category3.destroy()
+    category4.destroy() # destroy - jeżeli zostanie wciśnięty przycisk z wyborem kategorii to następnie wszystkie przyciski mają zniknąć, żeby przejść do dalszej części gry
 
 def category_selection2():
     word = random.choice(plants)
     # messagebox.showinfo("Hejka", word)
+    category1.destroy()
+    category2.destroy()
+    category3.destroy()
+    category4.destroy()
 
 def category_selection3():
     word = random.choice(professions)
     # messagebox.showinfo("Hejka", word)
+    category1.destroy()
+    category2.destroy()
+    category3.destroy()
+    category4.destroy()
 
 def category_selection4():
     word = random.choice(proverbs)
     # messagebox.showinfo("Hejka", word)
+    category1.destroy()
+    category2.destroy()
+    category3.destroy()
+    category4.destroy()
 
 category1 = Button(main_window, text="ANIMALS", fg="red", width=25, height=5, command = category_selection1)
 category1.place(x=200,y=300)
