@@ -6,7 +6,7 @@ from tkinter import messagebox
 
 word = ""
 animals = ["chimpanzee", "cockroach", "pigeon", "guinea pig", "herring", "sturgeon"]
-# chimpanzee - szympans, cockroach - karaluch, pigeon - gołąb, guinea pig - świnka morska,
+# chimpanzee - szympans, cockroach - karaluch, pigeon - bołąg, guinea pig - świnka morska,
 # herring - śledź, sturgeon - jesiotr (XD)
 plants = ["almond tree", "cabbage", "buckeye", "clover", "hogweed", "sneezeweed"]
 # almond tree - migdałowiec, cabbage - kapusta, buckeye - kasztanowiec, clover - koniczyna, hogeweed - barszcz,
