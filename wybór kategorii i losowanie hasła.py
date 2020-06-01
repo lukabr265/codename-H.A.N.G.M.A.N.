@@ -6,7 +6,6 @@ from tkinter import messagebox
 
 word = ""
 letter = ""
-# alfabet = "abcdefghijklmnopqrstuvwxyz"
 alfabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 animals = ["chimpanzee", "cockroach", "pigeon", "guinea pig", "herring", "sturgeon"]
 # chimpanzee - szympans, cockroach - karaluch, pigeon - gołąb, guinea pig - świnka morska,
@@ -42,40 +41,48 @@ category_selection.place(x=350,y=50) # ustawienie pozycji tekstu
 category_selection = Entry(main_window)
 
 def category_selection1():
+    global word # zmienna word będzie działała dzięki temu również poza tą funkcją, a nie tylko wewnątrz niej
     word = random.choice(animals) # funkcja ma sprawić, że po naciśnięciu przycisku ANIMALS itd. losuje się słowo z tej listy
-    #messagebox.showinfo("Hejka", word) # messagebox'y były do sprawdzenia, czy wszystko śmiga
+    # messagebox.showinfo("Hejka", word) # messagebox'y były do sprawdzenia, czy wszystko śmiga
     tekst.set("") # nadpisuje label pustym tekstem, żeby po wciśnięciu przycisku też zniknął z ekranu 
     category1.destroy() # destroy - jeżeli zostanie wciśnięty przycisk z wyborem kategorii to następnie wszystkie przyciski mają zniknąć, żeby przejść do dalszej części gry
     category2.destroy()
     category3.destroy()
     category4.destroy()
+    button_action()
 
 def category_selection2():
+    global word
     word = random.choice(plants)
-    #messagebox.showinfo("Hejka", word)
+    # messagebox.showinfo("Hejka", word)
     tekst.set("")
     category1.destroy()
     category2.destroy()
     category3.destroy()
     category4.destroy()
+    button_action()
 
 def category_selection3():
+    global word
     word = random.choice(professions)
-    #messagebox.showinfo("Hejka", word)
+    # messagebox.showinfo("Hejka", word)
     tekst.set("")
     category1.destroy()
     category2.destroy()
     category3.destroy()
     category4.destroy()
+    button_action()
 
 def category_selection4():
+    global word
     word = random.choice(proverbs)
-    #messagebox.showinfo("Hejka", word)
+    # messagebox.showinfo("Hejka", word)
     tekst.set("")
     category1.destroy()
     category2.destroy()
     category3.destroy()
     category4.destroy()
+    button_action()
 
 category1 = Button(main_window, text="ANIMALS", fg="red", width=25, height=5, command = category_selection1)
 category1.place(x=200,y=300)
@@ -86,5 +93,18 @@ category3 = Button(main_window, text="PROFESSIONS", fg="red", width=25, height=5
 category3.place(x=600, y=300)
 category4 = Button(main_window, text="PROVERBS", fg="red", width=25, height=5, command = category_selection4)
 category4.place(x=800, y=300)
+
+# funkcja, która utworzy przyciski z literami
+def button_action():
+    letter_x = 155
+    letter_y = 550
+    for letter in alfabet:
+        button = Radiobutton(main_window, text = letter, bg="yellow", fg="red", width=4, height=2,font=(None,15))
+        button.place(x=letter_x,y=letter_y)
+        if letter == 'M': # do momentu, w którym pojawi się na przyciku litera "M" przyciski wyświetlają się w miejscu x=155, y=620
+            letter_x = 155
+            letter_y = 620
+        else: # przyciski z literami po literze "M" wyświetlają się w miejscu x=225(155+70), y=620
+            letter_x += 70
 
 main_window.mainloop()
