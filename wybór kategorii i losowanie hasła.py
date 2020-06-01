@@ -32,7 +32,7 @@ category_selection = Entry(main_window)
 
 def category_selection1():
     word = random.choice(animals) # funkcja ma sprawić, że po naciśnięciu przycisku ANIMALS itd. losuje się słowo z tej listy
-    # messagebox.showinfo("Hejka", word) # messagebox'y były do sprawdzenia, czy wszystko śmiga
+    # messagebox.showinfo("Yours word:", word) # messagebox'y były do sprawdzenia, czy wszystko śmiga
     category1.destroy()
     category2.destroy()
     category3.destroy()
@@ -40,7 +40,7 @@ def category_selection1():
 
 def category_selection2():
     word = random.choice(plants)
-    # messagebox.showinfo("Hejka", word)
+    # messagebox.showinfo("Yours word:", word)
     category1.destroy()
     category2.destroy()
     category3.destroy()
@@ -48,7 +48,7 @@ def category_selection2():
 
 def category_selection3():
     word = random.choice(professions)
-    # messagebox.showinfo("Hejka", word)
+    # messagebox.showinfo("Yours word:", word)
     category1.destroy()
     category2.destroy()
     category3.destroy()
@@ -56,7 +56,7 @@ def category_selection3():
 
 def category_selection4():
     word = random.choice(proverbs)
-    # messagebox.showinfo("Hejka", word)
+    # messagebox.showinfo("Yours word:", word)
     category1.destroy()
     category2.destroy()
     category3.destroy()
