@@ -1,0 +1,16 @@
+from render_hangman import *
+import time
+wisiel = Render_controler()
+wisiel.load_images()
+wisiel.show_hangman()
+wisiel.show_next()
+wisiel.show_next()
+wisiel.show_next()
+wisiel.show_next()
+wisiel.show_next()
+wisiel.show_next()
+wisiel.show_next()
+wisiel.show_next()
+wisiel.show_next()
+wisiel.show_next()
+wisiel.window.mainloop()
