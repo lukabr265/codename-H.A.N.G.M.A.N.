@@ -6,6 +6,12 @@ from tkinter import Tk, Canvas, Frame, BOTH, messagebox
 from PIL import Image, ImageTk
 from render_hangman import * #importuje modul Kingi ktory odpowiada za renderowanie wisielca na ekranie
 
+#statystyki
+liczba_prob = 10
+liczba_wygranych = 0
+liczba_przegranych = 0
+wyniki = [] #przechowywanie danych z funkcji statystyki, żeby je później zniszczyc i zaktualizowac ich wynik
+
 guessed=[] #tablica w ktorej zapisujemy poprawnie odgadniete litery
 word = "" #haslo do gry
 alfabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -36,14 +42,61 @@ main_window.configure(bg='white') #ustawiam białe tło ekranu a pozniej tez inn
 wisiel = Render_controler() #uruchamiam klase ktora odpowiada za renderowanie wisielca
 wisiel.load_images() #laduje obrazy z folderu 'img' ktory powinien znajdowac sie w tym samym folderze w ktorym znajduje sie plik z tym kodem oraz plikiem 'render_hangman'
 
+#funkcja, która wyświetla liczby wygranych i przegranych rund oraz pozostałych prób
+def statystyki(wygrane, przegrane, proby): 
+    wygrane_rundy = Label(main_window, text= 'Wins: '+str(wygrane), font=(None,15),bg='white')
+    wyniki.append(wygrane_rundy)
+    wygrane_rundy.place(x=1100, y=200, anchor='center')
+
+    przegrane_rundy = Label(main_window, text= 'Loses: '+str(przegrane), font=(None,15),bg='white')
+    wyniki.append(przegrane_rundy)
+    przegrane_rundy.place(x=1100, y=250, anchor='center')
+
+    pozostale_proby = Label(main_window, text= 'Turns left: '+str(liczba_prob), font=(None,15),bg='white')
+    wyniki.append(pozostale_proby)
+    pozostale_proby.place(x=1100, y=300, anchor='center')
+
+#funkcja, która wypisuje hasło na ekranie
+def wypisywanie_hasla(): 
+    global word
+    global guessed
+    global lancuch_znakow
+    global liczba_wygranych
+    zasloniete = len(word)
+    ukryte_haslo = '' #pusty łańcuch znaków, w którym zostaną zapisane litery, spacje i podłogi, a później zostanie wyświetlony na ekranie
+    for litera in word:
+        if litera == ' ':
+            ukryte_haslo += ' ' #jeśli w haśle jest spacja to dodawana jest przerwa do łańcucha
+            zasloniete -= 1 
+        else: #jeśli litera nie jest spacją to zostaje sprawdzone, czy została już odgadnięta
+            if litera in guessed:
+                ukryte_haslo += litera #jeśli została odgadnięta to dodawana jest do łańcucha znaków
+                zasloniete -= 1
+            else:
+                ukryte_haslo += '_' #jeśli litera nie została odgadnięta to dodawana jest do łańcucha znaków w jej miejscu podłoga
+        ukryte_haslo += ' ' #dodanie przerwy między literami, aby podłogi się nie łączyły
+    #umieszczanie łańcucha znaków na ekranie
+    lancuch_znakow = Label(main_window, text=ukryte_haslo, font=(None,35),bg='white')
+    lancuch_znakow.place(x=600, y=480, anchor='center')
+    if zasloniete == 0:
+        liczba_wygranych += 1
+        for statystyka in wyniki: #niszczenie statystyk wypisanych wczesniej na ekranie, żeby móc je zaktualizować
+            statystyka.destroy()
+        statystyki(liczba_wygranych,liczba_przegranych,liczba_prob)
+        messagebox.showinfo("Winner!", "Congratulations, you've won!!!\nTo play another round press the \'New game\' button")
+
 def wrong_window(): #funkcja tworząca na ekranie okienko w ktorym wypisywane pozniej beda wybrane litery ktorychnie ma w hasle, czyli bledy
     global canvas
     global wrong_guesses_label
+    global stat_label
     canvas = Canvas(main_window,bg='white') #tworze canvas na ktorym narysuje prostokat w ktorym beda bledne litery oraz do nktorego beda ladowane kolejne obrazy z klatkami wisielca
-    canvas.create_rectangle(30, 50, 300, 290, outline="#f11", width=2) #rysuje prostokat na canvasie
+    canvas.create_rectangle(30, 50, 300, 290, outline='red', width=2) #rysuje prostokat na canvasie
+    canvas.create_rectangle(1030, 170, 1170, 340, outline='blue', width=2) 
     canvas.pack(fill=BOTH, expand=True)
     wrong_guesses_label = Label(main_window, text= 'Wrong guesses',font=(None,20),fg='red',bg='white') #podpisuje okienko z blednymi literami, zeby gracz wiedzial do czego ono sluzy
     wrong_guesses_label.place(x=70,y=5)
+    stat_label = Label(main_window, text= 'Stats',font=(None,20),fg='blue',bg='white') #podpisuje okienko z blednymi literami, zeby gracz wiedzial do czego ono sluzy
+    stat_label.place(x=1100,y=140,anchor='center')
 
 def caategory_selection_label(): #wypisywanie pytania o kategorie w kodzie Oliwii zamienilem w funkcje zeby latwiej je wyswietlac przy restarcie ekranu po wyborze nowej gry
     global tekst
@@ -66,6 +119,8 @@ def category_selection1():
     #dopiero po wybraniu kategorii i zniszczeniu obiektow z dotychczasowego okna inicjuje tworzenie nowych
     wrong_window() #tworze okienko w ktorym beda blednie wybrane litery
     button_action() #uruchamiam tworzenie przyciskow z guzikami liter
+    wypisywanie_hasla()
+    statystyki(liczba_wygranych,liczba_przegranych,liczba_prob)
     print(word)
 
 def category_selection2():
@@ -79,6 +134,8 @@ def category_selection2():
     category4.destroy()
     wrong_window()
     button_action()
+    wypisywanie_hasla()
+    statystyki(liczba_wygranych,liczba_przegranych,liczba_prob)
     print(word)
 
 def category_selection3():
@@ -92,6 +149,8 @@ def category_selection3():
     category4.destroy()
     wrong_window()
     button_action()
+    wypisywanie_hasla()
+    statystyki(liczba_wygranych,liczba_przegranych,liczba_prob)
     print(word)
 
 def category_selection4():
@@ -105,6 +164,8 @@ def category_selection4():
     category4.destroy()
     wrong_window()
     button_action()
+    wypisywanie_hasla()
+    statystyki(liczba_wygranych,liczba_przegranych,liczba_prob)
     print(word)
 
 def category_buttons(): #tworzenie guzikow w kodzie Oliwii wstawilem w funkcje zeby przy wybraniu nowej gry szybko wywolac ten fragment kodu
@@ -132,7 +193,16 @@ def print_wrong_letter(letter): #funkcja wypisujaca bledna litere w okienku twor
     global wrong_letters
     global letter_labels
     global canvas
+    global liczba_prob
+    global wyniki
+    global liczba_przegranych
     if letter not in wrong_letters: #sprawdzam czy litera nie zostala juz wybrana wczesniej, zeby kazdy blad wyswietlal sie w okienku tylko raz
+        liczba_prob -= 1
+        if liczba_prob < 1:
+            liczba_przegranych += 1
+        for statystyka in wyniki: #niszczenie statystyk wypisanych wczesniej na ekranie, żeby móc je zaktualizować
+            statystyka.destroy()
+        statystyki(liczba_wygranych,liczba_przegranych,liczba_prob)
         label = Label(main_window, text= letter,font=(None,20),bg='white') #tworze label z uzyta litera ktory pozniej ozstanie dodany na ekranie
         letter_labels.append(label) #dolaczam ten label do listy z ktorej pozniej bede bral argumenty zeby je usuwac z ekranu po wyborze nowej gry
         label.place(x=wrong_x,y=wrong_y)
@@ -150,6 +220,9 @@ def nowa_gra(): #tutaj resetuje zmienne odpowiedzialne za przebieg jednej rozgry
     global wrong_y
     global word
     global wrong_letters
+    global wyniki
+    global liczba_prob
+    liczba_prob = 10
     wisiel.counter = 0 #resetuje licznik tur w module 'render_hangaman' Kingi zeby w nowej rozgrywce przy bledach kolejne klatki wyswietlaly sie od nowa
                         #w przeciwnym razie wyswietlalyby sie dalej od miejsca w ktoym wybralo sie nowa rozgrywke
     wrong_x = 45 #przywracam wspolrzedne x i y pierwszej zlej litery do pierwotnych ustawien zeby w nowej rozgrywce wypisywaly sie w tym samym miejscu co poprzednie
@@ -159,12 +232,17 @@ def nowa_gra(): #tutaj resetuje zmienne odpowiedzialne za przebieg jednej rozgry
         button.destroy() #usuwam z ekranu guzki z literami
     for label in letter_labels:
         label.destroy() #usuwam wypisane w okienku 'wrong_window' litery
+    for statystyka in wyniki: #niszczenie statystyk wypisanych wczesniej na ekranie, żeby móc je zaktualizować
+        statystyka.destroy()
     canvas.destroy() #usuwam canvas na ktoym wypisany jest prostokat okienka 'wrong_window' i dany obraz z wisielcem
-    wrong_guesses_label.destroy() #usuwam tytul okienka z bledami
+    wrong_guesses_label.destroy() #usuwam tytuly okienka z bledami i statystykami
+    stat_label.destroy()
+    guessed.clear()
     wrong_letters.clear() #czyszcze liste zapisanych blednych liter zeby w kolejnej rozgrywce zapisywac bledy od nowa
     przycisk_nowa_gra.destroy() #usuwam przyciski nowej gry i quit poniewaz wydaje mi sie ze nie sa potrzebne na tym ekranie    
     QUIT.destroy()
-    messagebox.showinfo('Restart','Pora na kolejną turę! :)') #informuje gracza o restarcie
+    lancuch_znakow.destroy()
+    #messagebox.showinfo('Restart','Let\'s play another round! :)') #informuje gracza o restarcie
     #od nowa tworze ekran wyboru kategorii:
     caategory_selection_label() #wyswietlam pytanie o wybor kategorii
     category_buttons() #wyswietlam guziki wyboru kategorii
@@ -177,6 +255,8 @@ def letter_A():
     if "a" in word:
         if "a" not in guessed:
             guessed.append("a") # jeżeli dana literka jest w wylosowanym wcześniej słowie i nie ma jej na liście już zgadniętych liter to zostaje ona do niej dodana
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('a') #jesli danej litery nie ma w hasle zostaje odeslana do funkcji ktora ja przetworzy jako blad i wykona odpowiednie operacje
 #to samo powtarza sie kolejne 25 razy dla pozostalych liter:
@@ -186,6 +266,8 @@ def letter_B():
     if "b" in word:
         if "b" not in guessed:
             guessed.append("b")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('b')
 def letter_C():
@@ -194,6 +276,8 @@ def letter_C():
     if "c" in word:
         if "c" not in guessed:
             guessed.append("c")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('c')
 def letter_D():
@@ -202,6 +286,8 @@ def letter_D():
     if "d" in word:
         if "d" not in guessed:
             guessed.append("d")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('d')
 def letter_E():
@@ -210,6 +296,8 @@ def letter_E():
     if "e" in word:
         if "e" not in guessed:
             guessed.append("e")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('e')
 def letter_F():
@@ -218,6 +306,8 @@ def letter_F():
     if "f" in word:
         if "f" not in guessed:
             guessed.append("f")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('f')
 def letter_G():
@@ -226,6 +316,8 @@ def letter_G():
     if "g" in word:
         if "g" not in guessed:
             guessed.append("g")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('g')
 def letter_H():
@@ -234,6 +326,8 @@ def letter_H():
     if "h" in word:
         if "h" not in guessed:
             guessed.append("h")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('h')
 def letter_I():
@@ -242,6 +336,8 @@ def letter_I():
     if "i" in word:
         if "i" not in guessed:
             guessed.append("i")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('i')
 def letter_J():
@@ -250,6 +346,8 @@ def letter_J():
     if "j" in word:
         if "j" not in guessed:
             guessed.append("j")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('j')
 def letter_K():
@@ -258,6 +356,8 @@ def letter_K():
     if "k" in word:
         if "k" not in guessed:
             guessed.append("k")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('k')
 def letter_L():
@@ -266,6 +366,8 @@ def letter_L():
     if "l" in word:
         if "l" not in guessed:
             guessed.append("l")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('l')
 def letter_M():
@@ -274,6 +376,8 @@ def letter_M():
     if "m" in word:
         if "m" not in guessed:
             guessed.append("m")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('m')
 def letter_N():
@@ -282,6 +386,8 @@ def letter_N():
     if "n" in word:
         if "n" not in guessed:
             guessed.append("n")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('n')
 def letter_O():
@@ -290,6 +396,8 @@ def letter_O():
     if "o" in word:
         if "o" not in guessed:
             guessed.append("o")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('o')
 def letter_P():
@@ -298,6 +406,8 @@ def letter_P():
     if "p" in word:
         if "p" not in guessed:
             guessed.append("p")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('p')
 def letter_Q():
@@ -306,6 +416,8 @@ def letter_Q():
     if "q" in word:
         if "q" not in guessed:
             guessed.append("q")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('q')
 def letter_R():
@@ -314,6 +426,8 @@ def letter_R():
     if "r" in word:
         if "r" not in guessed:
             guessed.append("r")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('r')
 def letter_S():
@@ -322,6 +436,8 @@ def letter_S():
     if "s" in word:
         if "s" not in guessed:
             guessed.append("s")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('s')
 def letter_T():
@@ -330,6 +446,8 @@ def letter_T():
     if "t" in word:
         if "t" not in guessed:
             guessed.append("t")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('t')
 def letter_U():
@@ -338,6 +456,8 @@ def letter_U():
     if "u" in word:
         if "u" not in guessed:
             guessed.append("u")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('u')
 def letter_V():
@@ -346,6 +466,8 @@ def letter_V():
     if "v" in word:
         if "v" not in guessed:
             guessed.append("v")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('v')
 def letter_W():
@@ -354,6 +476,8 @@ def letter_W():
     if "w" in word:
         if "w" not in guessed:
             guessed.append("w")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('w')
 def letter_X():
@@ -362,6 +486,8 @@ def letter_X():
     if "x" in word:
         if "x" not in guessed:
             guessed.append("x")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('x')
 def letter_Y():
@@ -370,6 +496,8 @@ def letter_Y():
     if "y" in word:
         if "y" not in guessed:
             guessed.append("y")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('y')
 def letter_Z():
@@ -378,6 +506,8 @@ def letter_Z():
     if "z" in word:
         if "z" not in guessed:
             guessed.append("z")
+            lancuch_znakow.destroy()
+            wypisywanie_hasla()
     else:
         print_wrong_letter('z')
 
@@ -406,11 +536,12 @@ def button_action():
         else: # w przypadku pozostałych przycisków odległość między nimi, czyli x, zwiększa się o 70 (żeby nie zachodziły na siebie)
             letter_x += 70
     
-    QUIT = Button(main_window,text = "QUIT",fg='red',command=main_window.close,font=(None,15)) #tworze na ekranie guzik ewentualnego wyjscia z gry jesli uzytkownik bedzie mial taka ochote
+    QUIT = Button(main_window,text = "QUIT",fg='red',command=main_window.quit,font=(None,15)) #tworze na ekranie guzik ewentualnego wyjscia z gry jesli uzytkownik bedzie mial taka ochote
     QUIT.place(x=1130,y=0)
     przycisk_nowa_gra=Button(main_window,text='New game',command=nowa_gra,font=(None,15)) #tworze guzik do wyboru nowej gry w przypadku przegranej lub wygranej jesli uzytkownik bedzie mial ochote grac dalej 
     przycisk_nowa_gra.place(x=1020,y=0)
- #po calym tym kodzie pelnym funkcji w koncu cos odpalamy na ekranie czyli pytanie o wybor kategorii oraz guziki do wyboru ktorejs, co pozniej odpala kaskade wypisywania omowionych wyzej rzeczy na ekranie
+#po calym tym kodzie pelnym funkcji w koncu cos odpalamy na ekranie czyli pytanie o wybor kategorii oraz guziki do wyboru ktorejs, co pozniej odpala kaskade wypisywania omowionych wyzej rzeczy na ekranie
+
 caategory_selection_label()
 category_buttons()
 
