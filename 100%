@@ -1,5 +1,5 @@
 #Calosc do testowania i fixow
-#porgram do dzialania wymaga umieszczenia w tym samym folderze pliku 'render_hangman.py' oraz folderu 'img'
+#program do dzialania wymaga umieszczenia w tym samym folderze pliku 'render_hangman.py' oraz folderu 'img'
 import random
 from tkinter import*
 from tkinter import Tk, Canvas, Frame, BOTH, messagebox
