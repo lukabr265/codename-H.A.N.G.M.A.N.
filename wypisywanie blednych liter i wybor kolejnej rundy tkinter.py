@@ -1,12 +1,15 @@
 from tkinter import Tk, Canvas, Frame, BOTH, messagebox
 from tkinter import *
 
+root = Tk() #tworze ekran
+root.geometry("1200x800")
 word = 'haslo maslo' #przykladowe haslo
 alfabet ='qwertyuiopasdfghjklzxcvbnm' #alfabet do sprawdzania ktore litery sa w hasle
 wrong_x =  45 #wspolrzedna x dla pierwszej blednej litery
 wrong_y = 60 #wspolrzedna y dla pierwszej blednej litery
 wrong_letters = [] #tablica do zapisywania blednie wybranych liter
 turns=11 #przykladowa liczba tur
+letter_labels = []
 
 def letter_list(letter,wrong_letters): #funkcja dodajaca elementy do listy uzytych liter ktorych nie ma w hasle
     global wrong_x
@@ -33,12 +36,16 @@ class App(Frame): #klasa zarzadzajaca ekranem
         global wrong_x
         global wrong_y
         global word
-        word ='qwerty'
+        global letter_labels
+        for label in letter_labels:
+            label.destroy()
+        word ='maslo trzaslo'
         turns = 11
         wrong_x = 45
         wrong_y = 60
         wrong_letters.clear()
         messagebox.showinfo('Nowa gra','Restart')
+        wrongs()
     def buttons(self): #funkcja do tworzenia guzikow 'nowa gra' i 'quit'
         self.QUIT = Button(self,text = "QUIT",fg='red',command=self.quit,font=(None,15))
         self.QUIT.place(x=1100,y=0)
@@ -54,12 +61,19 @@ class App(Frame): #klasa zarzadzajaca ekranem
         canvas.create_rectangle(30, 50, 300, 290, outline="#f11", width=2)
         canvas.pack(fill=BOTH, expand=1)
 
-root = Tk() #tworze ekran
+def wrongs():
+    global alfabet
+    global wrong_letters
+    global letter_labels
+    global turns
+    for letter in alfabet:
+        if letter not in word and letter not in wrong_letters and turns>0: #jesli litera nie jest w hasle i nie ma jej jeszcze w uztych blednych literach to ja do nich dodaje
+            print(letter)
+            letter_list(letter,wrong_letters)
+            turns-=1 #jako ze to zla litera to zmniejszam liczbe tur
+    print_wrong_letter(wrong_letters,root) #wypisuje uzyte bledne litery na ekranie
+
 app = App() #uruchamiam klase ktora wypisuje rzeczy na ekranie
-root.geometry("1200x800")
-for letter in alfabet:
-    if letter not in word and letter not in wrong_letters and turns>0: #jesli litera nie jest w hasle i nie ma jej jeszcze w uztych blednych literach to ja do nich dodaje
-        letter_list(letter,wrong_letters)
-        turns-=1 #jako ze to zla litera to zmniejszam liczbe tur
-print_wrong_letter(wrong_letters,root) #wypisuje uzyte bledne litery na ekranie
+
+wrongs()
 root.mainloop()
