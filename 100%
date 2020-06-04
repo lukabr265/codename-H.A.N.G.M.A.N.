@@ -1,5 +1,5 @@
 #Calosc do testowania i fixow
-#program do dzialania wymaga umieszczenia w tym samym folderze pliku 'render_hangman.py' oraz folderu 'img'
+#porgram do dzialania wymaga umieszczenia w tym samym folderze pliku 'render_hangman.py' oraz folderu 'img'
 import random
 from tkinter import*
 from tkinter import Tk, Canvas, Frame, BOTH, messagebox
@@ -197,6 +197,7 @@ def print_wrong_letter(letter): #funkcja wypisujaca bledna litere w okienku twor
     global liczba_prob
     global wyniki
     global liczba_przegranych
+    global word
     if letter not in wrong_letters: #sprawdzam czy litera nie zostala juz wybrana wczesniej, zeby kazdy blad wyswietlal sie w okienku tylko raz
         liczba_prob -= 1 #zmniejszam liczbe prob o 1 poniewaz wybrana zostala nowa litera ktorej nie ma w hasle 
         if liczba_prob < 1:
@@ -208,7 +209,7 @@ def print_wrong_letter(letter): #funkcja wypisujaca bledna litere w okienku twor
         letter_labels.append(label) #dolaczam ten label do listy z ktorej pozniej bede bral argumenty zeby je usuwac z ekranu po wyborze nowej gry
         label.place(x=wrong_x,y=wrong_y)
         wrong_letters.append(letter) #dodaje litere do tablicy 'wrong_letters' zeby sprawdzac ktore litery zostaly juz uzyte i nie wypisywac ich drugi raz
-        wisiel.show_next(canvas) #przy bledzie wyswietlam kolejna klatke wisielca z kodu Kingi
+        wisiel.show_next(canvas,word) #przy bledzie wyswietlam kolejna klatke wisielca z kodu Kingi, Oliwia zauwazyla ze pomocne moze byc wyswietlanie hasla uzytkownikowi kiedy go nie odgadnal zeby wiedzial jakie bylo wiec dodalem tekst do okna z informacja w module 'render_hangman' i dlatego wstawiam 'word' jako argument funkcji
     # modyfikuje wspolrzedne kolejnych liter tak zeby wszystkie sie zmiescily w okreslonym okienku
         if wrong_x > 240:
             wrong_x = 45
