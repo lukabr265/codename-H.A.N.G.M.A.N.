@@ -1,4 +1,4 @@
-# Wybór kategorii hasła i losowanie hasła z wybranej kategorii, input, wyswietlanie wisielca, sprawdzanie bledow i poprawnych odgadniec, kolejne rozgrywki
+#Calosc do testowania i fixow
 #porgram do dzialania wymaga umieszczenia w tym samym folderze pliku 'render_hangman.py' oraz folderu 'img'
 import random
 from tkinter import*
@@ -62,7 +62,8 @@ def wypisywanie_hasla():
     global guessed
     global lancuch_znakow
     global liczba_wygranych
-    zasloniete = len(word)
+    global zasloniete
+    zasloniete = len(word) #zmienna sluzaca dosprawdzania ile liter wyswietla sie jako zasloniete
     ukryte_haslo = '' #pusty łańcuch znaków, w którym zostaną zapisane litery, spacje i podłogi, a później zostanie wyświetlony na ekranie
     for litera in word:
         if litera == ' ':
@@ -78,7 +79,7 @@ def wypisywanie_hasla():
     #umieszczanie łańcucha znaków na ekranie
     lancuch_znakow = Label(main_window, text=ukryte_haslo, font=(None,35),bg='white')
     lancuch_znakow.place(x=600, y=480, anchor='center')
-    if zasloniete == 0:
+    if zasloniete == 0: #jesli wszystkie litery w hasle zostaly odsloniete to zwiekszam licznik wygranych o 1 i wyswietlam odpowiedni komunikat
         liczba_wygranych += 1
         for statystyka in wyniki: #niszczenie statystyk wypisanych wczesniej na ekranie, żeby móc je zaktualizować
             statystyka.destroy()
@@ -197,7 +198,7 @@ def print_wrong_letter(letter): #funkcja wypisujaca bledna litere w okienku twor
     global wyniki
     global liczba_przegranych
     if letter not in wrong_letters: #sprawdzam czy litera nie zostala juz wybrana wczesniej, zeby kazdy blad wyswietlal sie w okienku tylko raz
-        liczba_prob -= 1
+        liczba_prob -= 1 #zmniejszam liczbe prob o 1 poniewaz wybrana zostala nowa litera ktorej nie ma w hasle 
         if liczba_prob < 1:
             liczba_przegranych += 1
         for statystyka in wyniki: #niszczenie statystyk wypisanych wczesniej na ekranie, żeby móc je zaktualizować
@@ -252,264 +253,342 @@ def nowa_gra(): #tutaj resetuje zmienne odpowiedzialne za przebieg jednej rozgry
 def letter_A():
     global word
     global guessed
-    if "a" in word:
-        if "a" not in guessed:
-            guessed.append("a") # jeżeli dana literka jest w wylosowanym wcześniej słowie i nie ma jej na liście już zgadniętych liter to zostaje ona do niej dodana
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('a') #jesli danej litery nie ma w hasle zostaje odeslana do funkcji ktora ja przetworzy jako blad i wykona odpowiednie operacje
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0: #ten warunek sluzy do zablokowania funkcji guzikow w przyapdku wygranej (kiedy liczba zaslonietych liter osiagnie 0) lub przegranej (kiedy liczba_prob osiagnie 0)
+        if "a" in word:
+            if "a" not in guessed:
+                guessed.append("a") # jeżeli dana literka jest w wylosowanym wcześniej słowie i nie ma jej na liście już zgadniętych liter to zostaje ona do niej dodana
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('a') #jesli danej litery nie ma w hasle zostaje odeslana do funkcji ktora ja przetworzy jako blad i wykona odpowiednie operacje
 #to samo powtarza sie kolejne 25 razy dla pozostalych liter:
 def letter_B():
     global word
     global guessed
-    if "b" in word:
-        if "b" not in guessed:
-            guessed.append("b")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('b')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "b" in word:
+            if "b" not in guessed:
+                guessed.append("b")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('b')
 def letter_C():
     global word
     global guessed
-    if "c" in word:
-        if "c" not in guessed:
-            guessed.append("c")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('c')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "c" in word:
+            if "c" not in guessed:
+                guessed.append("c")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('c')
 def letter_D():
     global word
     global guessed
-    if "d" in word:
-        if "d" not in guessed:
-            guessed.append("d")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('d')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "d" in word:
+            if "d" not in guessed:
+                guessed.append("d")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('d')
 def letter_E():
     global word
     global guessed
-    if "e" in word:
-        if "e" not in guessed:
-            guessed.append("e")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('e')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "e" in word:
+            if "e" not in guessed:
+                guessed.append("e")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('e')
 def letter_F():
     global word
     global guessed
-    if "f" in word:
-        if "f" not in guessed:
-            guessed.append("f")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('f')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "f" in word:
+            if "f" not in guessed:
+                guessed.append("f")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('f')
 def letter_G():
     global word
     global guessed
-    if "g" in word:
-        if "g" not in guessed:
-            guessed.append("g")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('g')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "g" in word:
+            if "g" not in guessed:
+                guessed.append("g")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('g')
 def letter_H():
     global word
     global guessed
-    if "h" in word:
-        if "h" not in guessed:
-            guessed.append("h")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('h')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "h" in word:
+            if "h" not in guessed:
+                guessed.append("h")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('h')
 def letter_I():
     global word
     global guessed
-    if "i" in word:
-        if "i" not in guessed:
-            guessed.append("i")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('i')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "i" in word:
+            if "i" not in guessed:
+                guessed.append("i")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('i')
 def letter_J():
     global word
     global guessed
-    if "j" in word:
-        if "j" not in guessed:
-            guessed.append("j")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('j')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "j" in word:
+            if "j" not in guessed:
+                guessed.append("j")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('j')
 def letter_K():
     global word
     global guessed
-    if "k" in word:
-        if "k" not in guessed:
-            guessed.append("k")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('k')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "k" in word:
+            if "k" not in guessed:
+                guessed.append("k")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('k')
 def letter_L():
     global word
     global guessed
-    if "l" in word:
-        if "l" not in guessed:
-            guessed.append("l")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('l')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "l" in word:
+            if "l" not in guessed:
+                guessed.append("l")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('l')
 def letter_M():
     global word
     global guessed
-    if "m" in word:
-        if "m" not in guessed:
-            guessed.append("m")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('m')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "m" in word:
+            if "m" not in guessed:
+                guessed.append("m")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('m')
 def letter_N():
     global word
     global guessed
-    if "n" in word:
-        if "n" not in guessed:
-            guessed.append("n")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('n')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "n" in word:
+            if "n" not in guessed:
+                guessed.append("n")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('n')
 def letter_O():
     global word
     global guessed
-    if "o" in word:
-        if "o" not in guessed:
-            guessed.append("o")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('o')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "o" in word:
+            if "o" not in guessed:
+                guessed.append("o")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('o')
 def letter_P():
     global word
     global guessed
-    if "p" in word:
-        if "p" not in guessed:
-            guessed.append("p")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('p')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "p" in word:
+            if "p" not in guessed:
+                guessed.append("p")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('p')
 def letter_Q():
     global word
     global guessed
-    if "q" in word:
-        if "q" not in guessed:
-            guessed.append("q")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('q')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "q" in word:
+            if "q" not in guessed:
+                guessed.append("q")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('q')
 def letter_R():
     global word
     global guessed
-    if "r" in word:
-        if "r" not in guessed:
-            guessed.append("r")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('r')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "r" in word:
+            if "r" not in guessed:
+                guessed.append("r")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('r')
 def letter_S():
     global word
     global guessed
-    if "s" in word:
-        if "s" not in guessed:
-            guessed.append("s")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('s')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "s" in word:
+            if "s" not in guessed:
+                guessed.append("s")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('s')
 def letter_T():
     global word
     global guessed
-    if "t" in word:
-        if "t" not in guessed:
-            guessed.append("t")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('t')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "t" in word:
+            if "t" not in guessed:
+                guessed.append("t")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('t')
 def letter_U():
     global word
     global guessed
-    if "u" in word:
-        if "u" not in guessed:
-            guessed.append("u")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('u')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "u" in word:
+            if "u" not in guessed:
+                guessed.append("u")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('u')
 def letter_V():
     global word
     global guessed
-    if "v" in word:
-        if "v" not in guessed:
-            guessed.append("v")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('v')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "v" in word:
+            if "v" not in guessed:
+                guessed.append("v")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('v')
 def letter_W():
     global word
     global guessed
-    if "w" in word:
-        if "w" not in guessed:
-            guessed.append("w")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('w')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "w" in word:
+            if "w" not in guessed:
+                guessed.append("w")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('w')
 def letter_X():
     global word
     global guessed
-    if "x" in word:
-        if "x" not in guessed:
-            guessed.append("x")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('x')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "x" in word:
+            if "x" not in guessed:
+                guessed.append("x")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('x')
 def letter_Y():
     global word
     global guessed
-    if "y" in word:
-        if "y" not in guessed:
-            guessed.append("y")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('y')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "y" in word:
+            if "y" not in guessed:
+                guessed.append("y")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('y')
 def letter_Z():
     global word
     global guessed
-    if "z" in word:
-        if "z" not in guessed:
-            guessed.append("z")
-            lancuch_znakow.destroy()
-            wypisywanie_hasla()
-    else:
-        print_wrong_letter('z')
+    global liczba_prob
+    global zasloniete
+    if liczba_prob > 0 and zasloniete > 0:
+        if "z" in word:
+            if "z" not in guessed:
+                guessed.append("z")
+                lancuch_znakow.destroy()
+                wypisywanie_hasla()
+        else:
+            print_wrong_letter('z')
 
 # lista zbierająca wszystkie powyższe funkcje, żeby można było ją następnie przypisać do funkcji, która tworzy przyciski za pomocą pętli
 Letters = [letter_A, letter_B, letter_C, letter_D, letter_E, letter_F, letter_G, letter_H, letter_I, letter_J, letter_K, letter_L, letter_M, letter_N, letter_O, letter_P, letter_Q, letter_R, letter_S, letter_T, letter_U, letter_V, letter_W, letter_X, letter_Y, letter_Z]
