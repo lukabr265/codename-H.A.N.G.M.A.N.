@@ -15,11 +15,11 @@ class Render_controler():
             picture = Image.open(self.get_path(i+1))
             self.list_images.append(picture)
 
-    def show_next(self,paper):
+    def show_next(self,paper,word_release):
         if self.counter >= 9:
             self.pic = ImageTk.PhotoImage(self.list_images[9].resize((380,420)))
             self.img_id = paper.create_image(600,200,image=self.pic)
-            messagebox.showinfo("The end", "You lost :(\nTo play another round press the \'New game\' button")
+            messagebox.showinfo("The end", "You lost :(\nThe word was: "+word_release.upper()+"\nTo play another round press the \'New game\' button") #Oliwia zauwazyla ze pomocne moze byc wyswietlanie hasla uzytkownikowi kiedy go nie odgadnal zeby wiedzial jakie bylo
             self.counter = 9
         else:
             self.pic = ImageTk.PhotoImage(self.list_images[self.counter].resize((380,420)))
