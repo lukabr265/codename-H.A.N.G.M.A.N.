@@ -1,4 +1,4 @@
-#Calosc do testowania i fixow
+#Wisielec - projekt grupy Katowice - final
 #porgram do dzialania wymaga umieszczenia w tym samym folderze pliku 'render_hangman.py' oraz folderu 'img'
 import random
 from tkinter import*
@@ -122,7 +122,7 @@ def category_selection1():
     button_action() #uruchamiam tworzenie przyciskow z guzikami liter
     wypisywanie_hasla()
     statystyki(liczba_wygranych,liczba_przegranych,liczba_prob)
-    print(word)
+    #print(word) #wypisywalem haslo w konsoli w celu sprawdzania funkcji ktore go dotycza
 
 def category_selection2():
     global word
@@ -137,7 +137,7 @@ def category_selection2():
     button_action()
     wypisywanie_hasla()
     statystyki(liczba_wygranych,liczba_przegranych,liczba_prob)
-    print(word)
+    #print(word)
 
 def category_selection3():
     global word
@@ -152,7 +152,7 @@ def category_selection3():
     button_action()
     wypisywanie_hasla()
     statystyki(liczba_wygranych,liczba_przegranych,liczba_prob)
-    print(word)
+    #print(word)
 
 def category_selection4():
     global word
@@ -167,7 +167,7 @@ def category_selection4():
     button_action()
     wypisywanie_hasla()
     statystyki(liczba_wygranych,liczba_przegranych,liczba_prob)
-    print(word)
+    #print(word)
 
 def category_buttons(): #tworzenie guzikow w kodzie Oliwii wstawilem w funkcje zeby przy wybraniu nowej gry szybko wywolac ten fragment kodu
     global category1 #category1, 2, 3 i 4 zamieniem w zmienne globalne zeby mozna bylo je niszczyc poza funkcja 'category_buttons' 
@@ -620,8 +620,8 @@ def button_action():
     QUIT.place(x=1130,y=0)
     przycisk_nowa_gra=Button(main_window,text='New game',command=nowa_gra,font=(None,15)) #tworze guzik do wyboru nowej gry w przypadku przegranej lub wygranej jesli uzytkownik bedzie mial ochote grac dalej 
     przycisk_nowa_gra.place(x=1020,y=0)
-#po calym tym kodzie pelnym funkcji w koncu cos odpalamy na ekranie czyli pytanie o wybor kategorii oraz guziki do wyboru ktorejs, co pozniej odpala kaskade wypisywania omowionych wyzej rzeczy na ekranie
 
+#po calym tym kodzie pelnym funkcji w koncu cos odpalamy na ekranie czyli pytanie o wybor kategorii oraz guziki do wyboru ktorejs, co pozniej odpala kaskade wypisywania omowionych wyzej rzeczy na ekranie
 caategory_selection_label()
 category_buttons()
 
