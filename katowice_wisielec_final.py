@@ -25,8 +25,8 @@ professions = ["software engineer", "physiotherapist", "veterinarian", "maintena
                "shipyard worker", "tax collector"]
 # software engineer - inżynier oprogramowania, programista, physiotherapist - fizjoterapeura, veterinarian - weterynarz,
 # maintenance man - konserwator, shipyard worker - pracownik stoczni, tax collector - poborca podatkowy
-proverbs = ["An empty vessel makes much noise", "Barking dogs seldom bite", "The show must go on",
-            "You cant unscramble a scrambled egg", "All that glitters is not gold"]
+proverbs = ["an empty vessel makes much noise", "barking dogs seldom bite", "the show must go on",
+            "you cant unscramble a scrambled egg", "all that glitters is not gold"]
 # [0]foolish or stupid people are the most talkative, [1]people who appear threatening rarely do harm,
 # [2]A performance, event, etc., must continue even though there are problems, [3]Some actions are irreversible,
 # [4]Things that look good outwardly may not be as valuable or good
@@ -77,7 +77,7 @@ def wypisywanie_hasla():
                 ukryte_haslo += '_' #jeśli litera nie została odgadnięta to dodawana jest do łańcucha znaków w jej miejscu podłoga
         ukryte_haslo += ' ' #dodanie przerwy między literami, aby podłogi się nie łączyły
     #umieszczanie łańcucha znaków na ekranie
-    lancuch_znakow = Label(main_window, text=ukryte_haslo, font=(None,35),bg='white')
+    lancuch_znakow = Label(main_window, text=ukryte_haslo, font=(None,30),bg='white')
     lancuch_znakow.place(x=600, y=480, anchor='center')
     if zasloniete == 0: #jesli wszystkie litery w hasle zostaly odsloniete to zwiekszam licznik wygranych o 1 i wyswietlam odpowiedni komunikat
         liczba_wygranych += 1
